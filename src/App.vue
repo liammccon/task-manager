@@ -1,19 +1,47 @@
 <template>
-  
-  <div class="container-fluid">
-    It's working!
-    <br/>
-    <button class="btn btn-primary">I'm a bootstrap button!</button>
+  <div id="app">
+    <NavBar @addBtnClicked="handleAddClicked" />
+    <Tasks :taskList="taskList" @deleteTask="deleteTask" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/NavBar.vue'
+import Tasks from './components/Tasks.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NavBar, Tasks
+  },
+  methods: {
+    handleAddClicked(){
+      this.addTestTask()
+    },
+    deleteTask(id){
+      this.taskList = this.taskList.filter(t => t.id !== id)
+    },
+    
+    addTestTask(){
+
+      this.taskList.push(
+        {
+          id: this.nextID++, //Increment ID for each task
+          title: 'MyTitle',
+          description: 'MyDescription',
+          deadline: '02-14-2001',
+          priority: 'med',
+          complete: true,
+        }
+      )
+    }
+  },
+  data (){
+    return {
+      taskList: [],
+      nextID: 1,
+    }
   }
 }
 </script>
@@ -25,6 +53,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  min-width: 550px;
 }
 </style>
