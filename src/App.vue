@@ -1,7 +1,10 @@
 <template>
-  ITS WORKING!
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  
+  <div class="container-fluid">
+    It's working!
+    <br/>
+    <button class="btn btn-primary">I'm a bootstrap button!</button>
+  </div>
 </template>
 
 <script>
