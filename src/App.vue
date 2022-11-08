@@ -2,18 +2,19 @@
   <div id="app">
     <NavBar @addBtnClicked="handleAddClicked" />
     <Tasks :taskList="taskList" @deleteTask="deleteTask" />
+    <NewModal/>
   </div>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
 import NavBar from './components/NavBar.vue'
 import Tasks from './components/Tasks.vue'
+import NewModal from './components/NewModal.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar, Tasks
+    NavBar, Tasks, NewModal,
   },
   methods: {
     handleAddClicked(){
