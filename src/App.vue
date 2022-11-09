@@ -2,7 +2,7 @@
   <div id="app">
     <NavBar @addBtnClicked="handleAddClicked" />
     <Tasks :taskList="taskList" @deleteTask="deleteTask" />
-    <NewModal/>
+    <NewModal ref="newModal" @addTask="addTask"/>
   </div>
 </template>
 
@@ -18,10 +18,14 @@ export default {
   },
   methods: {
     handleAddClicked(){
-      this.addTestTask()
+      this.$refs.newModal.showModal()
     },
     deleteTask(id){
       this.taskList = this.taskList.filter(t => t.id !== id)
+    },
+    addTask(task){
+      task.id=this.nextID++
+      this.taskList.push(task)
     },
     
     addTestTask(){

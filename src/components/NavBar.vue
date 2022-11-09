@@ -4,7 +4,7 @@
         <div class="col"></div>
         <!--Title-->
         <div class="col-6">
-          <div class="container-fluid h3 pt-1">Frameworks</div>
+          <div class="container-fluid h3 pt-1">Task Manager</div>
         </div>
   
         <!--button area-->
