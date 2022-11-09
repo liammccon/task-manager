@@ -1,18 +1,18 @@
 <template>
     <!-- Button trigger modal 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModal">
     Launch demo modal
     </button>
     -->
     <button class="btn btn-primary" id="modal-btn" ref="modalBtn" @click="showModal">Open modal</button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Static Modal -->
+    <div class="modal fade" id="newModal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
             <!--Header-->
         <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="newModalLabel">
                 <i class="fa-solid fa-plus me-2"></i>
                 Add task
             </h5>
@@ -102,10 +102,11 @@ export default {
     },
     methods: {
         showModal() {
-            $('#exampleModal').modal("show")
+            $('#newModal').modal({backdrop: 'static', keyboard: false})  //Must press cancel too close modal
+            $('#newModal').modal("show")
         },
         hideModal(){
-            $('#exampleModal').modal("hide")
+            $('#newModal').modal("hide")
             this.clearModal()
         },
         addTask(){
@@ -130,6 +131,9 @@ export default {
             $(".ltm-input").val("")
             var value = 'low';
             $("input[name=priority][value=" + value + "]").prop('checked', true);
+            titleInvalid = false
+            descriptionInvalid = false
+            deadlineInvalid = false
         }
     }
 }
