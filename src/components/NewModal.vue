@@ -15,33 +15,34 @@
             <div class="container-fluid">
 
                 <!--Form-->
-                <div class="">  
+                <div class="ltm-label-parent">  
                     <!--Title-->
+                    <label class="form-label ltm-label" for="title">Title</label>
                     <input type="text" id="title" placeholder="Enter title" class="form-control ltm-input mb-0" 
                     :class = "(titleInvalid)?'is-invalid':''"/>
-                    <label class="form-label ltm-label" for="title" hidden>Title</label>
                     <div v-show="titleInvalid" class="ltm-tiny-alert text-danger" >Title is required</div>
                 </div>
 
 
-                <div class="mt-4">  
-                    <!--Desceription-->
+                <div class="mt-4 ltm-label-parent">  
+                    <!--Description-->
+                    <label class="form-label ltm-label" for="description">Description</label>
                     <input type="text" id="description" placeholder="Enter description" class="form-control ltm-input mb-0"
                     :class = "(descriptionInvalid)?'is-invalid':''"/>
-                    <label class="form-label ltm-label" for="description" hidden>Description</label>
                     <div v-show="descriptionInvalid" class="ltm-tiny-alert text-left text-danger" >Description is required</div>
                 </div>
                 
-                <div class="mt-4">  
+                <div class="mt-4 ltm-label-parent">  
                     <!--Deadline-->
+                    <label class="form-label ltm-label" for="deadline">Deadline</label>
                     <input type="date" id="deadline" class="form-control ltm-input mb-0"
                     :class = "(deadlineInvalid)?'is-invalid':''"/>
-                    <label class="form-label ltm-label" for="deadline" hidden>Deadline</label>
                     <div v-show="deadlineInvalid" class="ltm-tiny-alert text-left text-danger" >Deadline is required</div>
                 </div>
 
                 <!--Priority-->
-                <div class="row mt-4">
+                <div class="row mt-4 ltm-label-parent">
+                    <label class="form-label ms-2" for="priority" style="text-align:left;">Priority</label>
                     <!--Low-->
                     <div class="col">
                         <input class="form-check-input" type="radio" name="priority" id="priority-low" value="low" checked>
@@ -97,6 +98,7 @@ export default {
         showModal() {
             $('#newModal').modal({backdrop: 'static', keyboard: false})  //Must press cancel too close modal
             $('#newModal').modal("show")
+            $("#title").focus() //todo why this no show???
         },
         hideModal(){
             $('#newModal').modal("hide")
@@ -152,5 +154,18 @@ export default {
         margin-left: 5px;
         font-size: 0.8em;
         text-align:left;
+    }
+
+    .ltm-label-parent{
+        position:relative;
+    }
+    .ltm-label{
+        font-size: .8em;
+        background-color: white;
+        position: absolute;
+        top: -12px;
+        left: 10px;
+        padding: 0;
+        border-radius: 3px;
     }
 </style>

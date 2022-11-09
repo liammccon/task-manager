@@ -5,7 +5,9 @@
         <div class="col ">{{task.description}}</div>
         <div class="col">{{task.deadline}}</div>
         <div class="col">{{task.priority}}</div>
-        <div class="col">{{task.complete}}</div>
+        <div class="col">
+            <input type="checkbox" class="form-check-input" id="check-{{task.id}}">
+        </div>
         <div class="col">
           <button class="btn btn-primary btn-floating">
             <i class="fa-solid fa-pen-to-square btn-circle"></i>
