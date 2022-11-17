@@ -19,7 +19,7 @@
                     <!--Title-->
                     <label class="form-label ltm-label" for="title">Title</label>
                     <input type="text" id="title" placeholder="Enter title" class="form-control ltm-input mb-0" 
-                    :class = "(titleInvalid)?'is-invalid':''"/>
+                    :class = "(titleInvalid)?'is-invalid':'' "/>
                     <div v-show="titleInvalid" class="ltm-tiny-alert text-danger" >Title is required</div>
                 </div>
 
@@ -35,7 +35,7 @@
                 <div class="mt-4 ltm-label-parent">  
                     <!--Deadline-->
                     <label class="form-label ltm-label" for="deadline">Deadline</label>
-                    <input type="date" id="deadline" class="form-control ltm-input mb-0"
+                    <input type="date" id="deadline" class="form-control ltm-input mb-0 ltm-date-text"
                     :class = "(deadlineInvalid)?'is-invalid':''"/>
                     <div v-show="deadlineInvalid" class="ltm-tiny-alert text-left text-danger" >Deadline is required</div>
                 </div>
@@ -167,5 +167,9 @@ export default {
         left: 10px;
         padding: 0;
         border-radius: 3px;
+    }
+
+    .ltm-date-text{
+        color: grey;
     }
 </style>
