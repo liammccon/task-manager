@@ -1,5 +1,11 @@
 <template>
-    <!-- Static Modal -->
+    <!--
+        This is a modal component that will work to both edit existing tasks and create new ones.
+        It takes as input 
+            - the task object to edit (can be an empty object for a new task)
+            - Whether to edit "EDIT" or create a new "NEW" task
+        It returns (with $emit) the edited task object
+    -->
     <div class="modal fade" id="newModal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
@@ -85,91 +91,21 @@
 <script>
 export default {
     props: {
-
+        task: Object,
+        type: String
     },
     data(){
         return {
-            titleInvalid: false,
-            descriptionInvalid: false,
-            deadlineInvalid: false,
+            
         }
     },
     methods: {
-        showModal() {
-            $('#newModal').modal({backdrop: 'static', keyboard: false})  //Must press cancel too close modal
-            $('#newModal').modal("show")
-            $("#title").focus() //todo why this no show???
-        },
-        hideModal(){
-            $('#newModal').modal("hide")
-            this.clearModal()
-        },
 
-        /**
-         * Called when the add button is pressed. Will validate fields return a task object if valid
-         */
-        addTask(){
-            this.validate()
-            if (this.titleInvalid || this.descriptionInvalid || this.deadlineInvalid) {
-                return
-            }
-            //if valid, emit the new task object
-            const newTask = {
-                title: $("#title").val(),
-                description: $("#description").val(),
-                deadline: $("#deadline").val(),
-                priority: $('input[name="priority"]:checked').val(),
-                complete: false,
-            }
-            this.$emit('addTask', newTask)
-            this.hideModal()
-        }, validate(){
-            const needsVal = [$("#title"), $("#description"), $("#deadline")]
-            
-            this.titleInvalid = $("#title").val()? false : true
-            this.descriptionInvalid = $("#description").val()? false : true
-            this.deadlineInvalid = $("#deadline").val()? false : true
-            
-            return needsVal.every(i=> i.val())
-        },
-
-        /**
-         * Clears all inputs and invalidity
-         */
-        clearModal(){
-            $(".ltm-input").val("")
-            var value = 'low';
-            $("input[name=priority][value=" + value + "]").prop('checked', true);
-            this.titleInvalid = false
-            this.descriptionInvalid = false
-            this.deadlineInvalid = false
-        }
     }
+    
 }
 </script>
 
 <style scoped>
-    .ltm-tiny-alert {
-        margin-top: 2px;
-        margin-left: 5px;
-        font-size: 0.8em;
-        text-align:left;
-    }
 
-    .ltm-label-parent{
-        position:relative;
-    }
-    .ltm-label{
-        font-size: .8em;
-        background-color: white;
-        position: absolute;
-        top: -12px;
-        left: 10px;
-        padding: 0;
-        border-radius: 3px;
-    }
-
-    .ltm-date-text{
-        color: grey;
-    }
 </style>
