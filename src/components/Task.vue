@@ -9,7 +9,7 @@
             <input type="checkbox" class="form-check-input" id="check-{{task.id}}">
         </div>
         <div class="col">
-          <button class="btn btn-primary btn-floating">
+          <button @click="editTask" class="btn btn-primary btn-floating">
             <i class="fa-solid fa-pen-to-square btn-circle"></i>
           </button>
           <button @click="deleteTask" class="btn btn-danger btn-floating">
@@ -42,9 +42,13 @@
     props: {
       task: Object
     },
+    emits: ["deleteTask", "editTask"],
     methods: {
       deleteTask(){
-        this.$emit('deleteTask', this.task)
+        this.$emit('deleteTask', this.task.id)
+      },
+      editTask(){
+        this.$emit('editTask', this.task.id)
       }
     }
   

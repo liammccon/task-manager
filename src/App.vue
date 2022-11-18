@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <NavBar @addBtnClicked="handleAddClicked" />
-    <Tasks :taskList="taskList" @deleteTask="deleteTask" />
+    <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
     <NewModal ref="newModal" @addTask="addTask"/>
+    <Modal ref="editModal" type="EDIT" :task="taskToEdit"/>
+    <Modal ref="newModal2" type="NEW" :task="createEmptyTask()"/>
   </div>
 </template>
 
@@ -10,11 +12,12 @@
 import NavBar from './components/NavBar.vue'
 import Tasks from './components/Tasks.vue'
 import NewModal from './components/NewModal.vue'
+import Modal from './components/Modal.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar, Tasks, NewModal,
+    NavBar, Tasks, NewModal, Modal
   },
   methods: {
     handleAddClicked(){
@@ -23,11 +26,24 @@ export default {
     deleteTask(id){
       this.taskList = this.taskList.filter(t => t.id !== id)
     },
+    editTask(id){
+      this.taskToEdit = this.taskList.find(task => task.id=id)
+      this.$refs.editModal.showModal()
+    },
     addTask(task){
       task.id=this.nextID++
       this.taskList.push(task)
     },
-    
+    createEmptyTask(){
+      return {
+          id: this.nextID++, //Increment ID for each task
+          title: '',
+          description: '',
+          deadline: '',
+          priority: '',
+          complete: false,
+      }
+    },
     addTestTask(){
 
       this.taskList.push(
@@ -46,6 +62,8 @@ export default {
     return {
       taskList: [],
       nextID: 1,
+      taskToEdit: Object,
+      editOrNew: String
     }
   }
 }

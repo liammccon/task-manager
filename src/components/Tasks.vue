@@ -15,7 +15,7 @@
     </div>
   
     <div v-for="task in taskList">
-      <Task :task="task" @deleteTask="deleteTask"/>
+      <Task :task="task" @editTask="editTask" @deleteTask="deleteTask"/>
     </div>
   
   </template>
@@ -31,7 +31,7 @@
     props: {
       taskList: Object,
     }, 
-    emits: ["deleteTask"],
+    emits: ["deleteTask", "editTask"],
 
     data() {
       return {
@@ -39,9 +39,12 @@
       };
     },
     methods: {
-    deleteTask (task){
-      this.$emit("deleteTask", task.id)
-    }
+      deleteTask (taskID){
+        this.$emit("deleteTask", taskID)
+      },
+      editTask(taskID){
+        this.$emit("editTask", taskID)
+      }
     }
   };
   </script>
