@@ -3,8 +3,14 @@
     <NavBar @addBtnClicked="handleAddClicked" />
     <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
     <NewModal ref="newModal" @addTask="addTask"/>
-    <Modal ref="editModal" type="EDIT" :task="taskToEdit"/>
-    <Modal ref="newModal2" type="NEW" :task="createEmptyTask()"/>
+    <button @click="showNewNewModal">Show new new modal (test)</button>
+    <button @click="addTestTask">make a test task (test)</button>
+    <div v-if="showNewModal">
+      <NewModal2 ref="newModal2" type="NEW" :task="newTask" />
+    </div>
+    <div v-else>
+      <Modal ref="editModal" type="EDIT" :task="taskToEdit"/>
+    </div>
   </div>
 </template>
 
@@ -13,21 +19,45 @@ import NavBar from './components/NavBar.vue'
 import Tasks from './components/Tasks.vue'
 import NewModal from './components/NewModal.vue'
 import Modal from './components/Modal.vue'
+import NewModal2 from './components/Modal.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar, Tasks, NewModal, Modal
+    NavBar, Tasks, NewModal, Modal, NewModal2
   },
+  computed: {
+    makeNewTask() {
+        return {
+              id: this.nextID++, //Increment ID for each task
+              title: '',
+              description: '',
+              deadline: '',
+              priority: '',
+              complete: false,
+          }
+    },
+  } ,
   methods: {
-    handleAddClicked(){
+    async showNewNewModal(){
+      this.showNewModal = true
+      this.showEditModal = false
+      await new Promise(resolve => setTimeout(resolve, 10)); //Needs to wait a moment or else the modal will be still null
+      this.$refs.newModal2.showModal()
+    },
+     handleAddClicked(){
+      this.showNewModal = true
+      this.showEditModal = false
       this.$refs.newModal.showModal()
     },
     deleteTask(id){
       this.taskList = this.taskList.filter(t => t.id !== id)
     },
-    editTask(id){
-      this.taskToEdit = this.taskList.find(task => task.id=id)
+    async editTask(id){
+      this.taskToEdit = this.taskList.find(task => task.id == id)
+      this.showNewModal = false
+      this.showEditModal = true
+      await new Promise(resolve => setTimeout(resolve, 10)); //Needs to wait a moment or else the modal will be still null
       this.$refs.editModal.showModal()
     },
     addTask(task){
@@ -62,8 +92,20 @@ export default {
     return {
       taskList: [],
       nextID: 1,
-      taskToEdit: Object,
-      editOrNew: String
+      newTask: Object,
+      taskToEdit: Object, //Invalid by default, must change to use
+      editOrNew: String,
+      newTask:
+          {
+              id: this.nextID++, //Increment ID for each task
+              title: '',
+              description: '',
+              deadline: '',
+              priority: '',
+              complete: false,
+          },
+      showNewModal: false,
+      showEditModal: false,
     }
   }
 }
