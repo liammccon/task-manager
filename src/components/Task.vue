@@ -6,10 +6,10 @@
         <div class="col">{{task.deadline}}</div>
         <div class="col">{{task.priority}}</div>
         <div class="col">
-            <input type="checkbox" class="form-check-input" id="check-{{task.id}}">
+            <input type="checkbox" class="form-check-input" :id="getCheckboxID()" @click="toggleComplete()">
         </div>
         <div class="col">
-          <button @click="editTask" class="btn btn-primary btn-floating">
+          <button v-show="!isComplete" @click="editTask" class="btn btn-primary btn-floating">
             <i class="fa-solid fa-pen-to-square btn-circle"></i>
           </button>
           <button @click="deleteTask" class="btn btn-danger btn-floating">
@@ -29,6 +29,7 @@
     name: 'Task',
     data () {
       return {
+        isComplete: false,
         /* deleteme
         fields: {
           title: undefined,
@@ -49,6 +50,13 @@
       },
       editTask(){
         this.$emit('editTask', this.task.id)
+      },
+      toggleComplete(){
+        console.log(this.task.complete)
+        this.isComplete = $("#" + this.getCheckboxID()).prop("checked")
+      },
+      getCheckboxID(){
+        return  "checkbox" + this.task.id
       }
     }
   

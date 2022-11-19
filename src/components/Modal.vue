@@ -126,7 +126,7 @@ export default {
             this.taskCopy = jQuery.extend({}, this.task)
             if(this.type == "EDIT"){
                 console.log(this.taskCopy.description)
-                $('#description').val(this.taskCopy.description)
+                $('#description').val(this.taskCopy.description) //TODO
             }
             console.log(this.task)
         },
