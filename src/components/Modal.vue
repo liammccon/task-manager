@@ -50,7 +50,7 @@
                             <!--Description-->
                             <label class="form-label ltm-label" for="description">Description</label>
                             <input type="text" id="description" placeholder="Enter description" class="form-control ltm-input mb-0"
-                            :class = "(descriptionInvalid)?'is-invalid':''"/>
+                            :class = "(descriptionInvalid)?'is-invalid':''" :value="this.task.description"/>
                             <div v-show="descriptionInvalid" class="ltm-tiny-alert text-left text-danger" >Description is required</div>
                         </div>
                         
@@ -58,7 +58,7 @@
                             <!--Deadline-->
                             <label class="form-label ltm-label" for="deadline">Deadline</label>
                             <input type="date" id="deadline" class="form-control ltm-input mb-0 ltm-date-text"
-                            :class = "(deadlineInvalid)?'is-invalid':''"/>
+                            :class = "(deadlineInvalid)?'is-invalid':''" :value="this.task.deadline"/>
                             <div v-show="deadlineInvalid" class="ltm-tiny-alert text-left text-danger" >Deadline is required</div>
                         </div>
 
@@ -141,7 +141,7 @@ export default {
             this.titleInvalid = false
             this.descriptionInvalid = false
             this.deadlineInvalid = false
-        }
+        },
     }
     
 }
@@ -168,7 +168,4 @@ export default {
         border-radius: 3px;
     }
 
-    .ltm-date-text{
-        color: grey;
-    }
 </style>

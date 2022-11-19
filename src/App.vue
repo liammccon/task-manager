@@ -81,7 +81,7 @@ export default {
           id: this.nextID++, //Increment ID for each task
           title: 'MyTitle',
           description: 'MyDescription',
-          deadline: '02-14-2001',
+          deadline: '2001-02-14',
           priority: 'med',
           complete: true,
         }
