@@ -15,11 +15,11 @@
                 <!--Header-->
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalLabel">
-                        <span v-if="type=='EDIT'">
-                            <i class="fa-solid fa-pen-to-square btn-circle"></i>
+                        <span v-if="isEdit()">
+                            <i class="fa-solid fa-pen-to-square"></i>
                             Edit task
                         </span>
-                        <span v-else-if="type=='NEW'">
+                        <span v-else-if="isNew()">
                             <i class="fa-solid fa-plus me-2"></i>
                             Add task
                         </span>
@@ -36,7 +36,7 @@
                         <!--Form-->
                         <div class="ltm-label-parent">  
                             <!--Title - only for new modals-->
-                            <div v-if="type=='NEW'">
+                            <div v-if="isNew()">
                                 <label class="form-label ltm-label" for="title">Title</label>
                                 <input type="text" id="title" placeholder="Enter title" class="form-control ltm-input mb-0" 
                                 :class = "(titleInvalid)?'is-invalid':'' "/>
@@ -91,8 +91,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" @click="addTask">
-                        <i class="fa-solid fa-plus me-2"></i>
-                        Add
+                        <i v-show="isNew()" class="fa-solid fa-plus me-2"></i>
+                        <i v-show="isEdit()" class="fa-solid fa-pen-to-square me-2"></i>
+                        <span v-show="isNew()">Add</span>
+                        <span v-show="isEdit()">Edit</span>
                     </button>
                     <button type="button" class="btn btn-danger" @click="cancel">
                         <i class="fa-solid fa-ban me2"></i>
@@ -145,6 +147,12 @@ export default {
             this.descriptionInvalid = false
             this.deadlineInvalid = false
         },
+        isEdit(){
+            return this.type=="EDIT"
+        },
+        isNew(){
+           return this.type=="NEW" 
+        }
     }
     
 }
