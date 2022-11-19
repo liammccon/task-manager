@@ -50,7 +50,7 @@
                             <!--Description-->
                             <label class="form-label ltm-label" for="description">Description</label>
                             <input type="text" id="description" placeholder="Enter description" class="form-control ltm-input mb-0"
-                            :class = "(descriptionInvalid)?'is-invalid':''" :value="this.task.description"/>
+                            :class = "(descriptionInvalid)?'is-invalid':''" />
                             <div v-show="descriptionInvalid" class="ltm-tiny-alert text-left text-danger" >Description is required</div>
                         </div>
                         
@@ -58,7 +58,7 @@
                             <!--Deadline-->
                             <label class="form-label ltm-label" for="deadline">Deadline</label>
                             <input type="date" id="deadline" class="form-control ltm-input mb-0 ltm-date-text"
-                            :class = "(deadlineInvalid)?'is-invalid':''" :value="this.task.deadline"/>
+                            :class = "(deadlineInvalid)?'is-invalid':''"/>
                             <div v-show="deadlineInvalid" class="ltm-tiny-alert text-left text-danger" >Deadline is required</div>
                         </div>
 
@@ -135,7 +135,8 @@ export default {
             this.taskCopy = jQuery.extend({}, this.task)
             if(this.isEdit()){
                 $("input[name=priority][value=" + this.task.priority + "]").prop('checked', true);
-                console.log("hi")
+                $("#description").val(this.taskCopy.description)
+                $("#deadline").val(this.taskCopy.deadline)
             } else if (this.isNew()){
                 var value = 'low';
                 $("input[name=priority][value=" + value + "]").prop('checked', true);
@@ -165,9 +166,8 @@ export default {
            return this.type=="NEW" 
         },
         addTask(){
-            //todo fix
-            console.log('HI' + this.validate())
-            if (this.titleInvalid || this.descriptionInvalid || this.deadlineInvalid) {
+            if (!this.validate()) {
+                console.log("Invalid!")
                 return
             }
             //if valid, emit the new task object
@@ -178,13 +178,12 @@ export default {
         editTask(){
             
         }, validate(){
-            const needsVal = [$("#title"), $("#description"), $("#deadline")]
             
             this.titleInvalid = $("#title").val()? false : true
             this.descriptionInvalid = $("#description").val()? false : true
             this.deadlineInvalid = $("#deadline").val()? false : true
             
-            return needsVal.every(i=> i.val())
+            return !this.titleInvalid && !this.descriptionInvalid && !this.deadlineInvalid
         },
         createTaskFromFields(){
             return {
