@@ -94,10 +94,12 @@
                         <i class="fa-solid fa-plus me-2"></i>
                         Add
                     </button>
-                    <button type="button" class="btn btn-danger" @click="deleteModal">
-                        <i class="fa-solid fa-trash me-2"></i>
+                    <button type="button" class="btn btn-danger" @click="cancel">
+                        <i class="fa-solid fa-ban me2"></i>
                         Cancel
                     </button>
+
+                    <!--Todo make a div v-if EDIT and v-if NEW to change buttons accordingly-->
                 </div>
 
             </div>
@@ -130,9 +132,10 @@ export default {
             }
             console.log(this.task)
         },
-        deleteModal(){
+        cancel(){
             $('#modal').modal("hide")
-            this.clearModalFields()
+            if (this.type == "NEW")
+                this.clearModalFields()
         },
         clearModalFields(){
             $(".ltm-input").val("")
