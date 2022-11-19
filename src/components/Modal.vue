@@ -67,7 +67,7 @@
                             <label class="form-label ms-2" for="priority" style="text-align:left;">Priority</label>
                             <!--Low-->
                             <div class="col">
-                                <input class="form-check-input" type="radio" name="priority" id="priority-low" value="low" checked>
+                                <input class="form-check-input" type="radio" name="priority" id="priority-low" value="low">
                                 <label class="form-check-label" for="priority-low">
                                     Low
                                 </label>
@@ -125,8 +125,8 @@ export default {
             $('#modal').modal("show")
             this.taskCopy = jQuery.extend({}, this.task)
             if(this.type == "EDIT"){
-                console.log(this.taskCopy.description)
-                $('#description').val(this.taskCopy.description) //TODO
+                $("input[name=priority][value=" + this.task.priority + "]").prop('checked', true);
+                console.log("hi")
             }
             console.log(this.task)
         },
