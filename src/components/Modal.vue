@@ -90,18 +90,23 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" @click="addTask">
-                        <i v-show="isNew()" class="fa-solid fa-plus me-2"></i>
-                        <i v-show="isEdit()" class="fa-solid fa-pen-to-square me-2"></i>
-                        <span v-show="isNew()">Add</span>
-                        <span v-show="isEdit()">Edit</span>
-                    </button>
+                    <!--New add button-->
+                    <div v-show="isNew()">
+                        <button type="button" class="btn btn-primary" @click="addTask">
+                            <i class="fa-solid fa-plus me-2"></i>
+                            Add 
+                        </button>
+                    </div>
+                    <div v-show="isEdit()">
+                        <button type="button" class="btn btn-primary" @click="editTask">
+                            <i class="fa-solid fa-pen-to-square me-2"></i>
+                            Edit
+                        </button>
+                    </div>
                     <button type="button" class="btn btn-danger" @click="cancel">
                         <i class="fa-solid fa-ban me2"></i>
                         Cancel
                     </button>
-
-                    <!--Todo make a div v-if EDIT and v-if NEW to change buttons accordingly-->
                 </div>
 
             </div>
@@ -128,16 +133,22 @@ export default {
             $('#modal').modal({backdrop: 'static', keyboard: false})  //Must press cancel too close modal
             $('#modal').modal("show")
             this.taskCopy = jQuery.extend({}, this.task)
-            if(this.type == "EDIT"){
+            if(this.isEdit()){
                 $("input[name=priority][value=" + this.task.priority + "]").prop('checked', true);
                 console.log("hi")
+            } else if (this.isNew()){
+                var value = 'low';
+                $("input[name=priority][value=" + value + "]").prop('checked', true);
             }
             console.log(this.task)
         },
         cancel(){
-            $('#modal').modal("hide")
+            this.hideModal()
             if (this.type == "NEW")
                 this.clearModalFields()
+        },
+        hideModal(){
+            $('#modal').modal("hide")
         },
         clearModalFields(){
             $(".ltm-input").val("")
@@ -152,6 +163,37 @@ export default {
         },
         isNew(){
            return this.type=="NEW" 
+        },
+        addTask(){
+            //todo fix
+            console.log('HI' + this.validate())
+            if (this.titleInvalid || this.descriptionInvalid || this.deadlineInvalid) {
+                return
+            }
+            //if valid, emit the new task object
+            const newTask = this.createTaskFromFields()
+            this.$emit('addTask', newTask)
+            this.cancel()
+        },
+        editTask(){
+            
+        }, validate(){
+            const needsVal = [$("#title"), $("#description"), $("#deadline")]
+            
+            this.titleInvalid = $("#title").val()? false : true
+            this.descriptionInvalid = $("#description").val()? false : true
+            this.deadlineInvalid = $("#deadline").val()? false : true
+            
+            return needsVal.every(i=> i.val())
+        },
+        createTaskFromFields(){
+            return {
+                title: $("#title").val(),
+                description: $("#description").val(),
+                deadline: $("#deadline").val(),
+                priority: $('input[name="priority"]:checked').val(),
+                complete: false,
+            }
         }
     }
     
