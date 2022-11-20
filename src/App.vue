@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <NavBar @addBtnClicked="handleAddClicked" />
-    <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
-    <div v-if="showNewModal">
-      <NewModal ref="newModal" type="NEW" :task="newTask" 
-      :currentTitles="this.taskList.map(task  => task.title)" 
-      @addTask="addTask"/>
+    <div class="ltm-content">
+      <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
+      <div v-if="showNewModal">
+        <NewModal ref="newModal" type="NEW" :task="newTask" 
+        :currentTitles="this.taskList.map(task  => task.title)" 
+        @addTask="addTask"/>
+      </div>
+      <div v-else>
+        <EditModal ref="editModal" type="EDIT" :task="taskToEdit" @updateTask="updateTask"/>
+      </div>
     </div>
-    <div v-else>
-      <EditModal ref="editModal" type="EDIT" :task="taskToEdit" @updateTask="updateTask"/>
-    </div>
+    
   </div>
 </template>
 
@@ -127,6 +130,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  min-width: 550px;
+  min-width: 500px;
 }
 </style>
