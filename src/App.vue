@@ -2,10 +2,10 @@
   <div id="app">
     <NavBar @addBtnClicked="handleAddClicked" />
     <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
-    <button @click="addTestTask">make a test task (test)</button>
-    <button @click="displayTestToast">New toast</button>
     <div v-if="showNewModal">
-      <NewModal ref="newModal" type="NEW" :task="newTask" @addTask="addTask"/>
+      <NewModal ref="newModal" type="NEW" :task="newTask" 
+      :currentTitles="this.taskList.map(task  => task.title)" 
+      @addTask="addTask"/>
     </div>
     <div v-else>
       <EditModal ref="editModal" type="EDIT" :task="taskToEdit" @updateTask="updateTask"/>
@@ -79,6 +79,9 @@ export default {
       taskToUpdate.deadline = editedTask.deadline
       taskToUpdate.priority = editedTask.priority
       toastr.success("Edited task: " + taskToUpdate.title)
+    },
+    listOfCurrentTitles(){
+      return this.taskList.map(task  => task.title)
     },
     addTestTask(){
 

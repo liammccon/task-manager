@@ -39,8 +39,10 @@
                             <div v-if="isNew()">
                                 <label class="form-label ltm-label" for="title">Title</label>
                                 <input type="text" id="title" placeholder="Enter title" class="form-control ltm-input mb-0" 
-                                :class = "(titleInvalid)?'is-invalid':'' "/>
+                                :class = "(titleInvalid || duplicateTitle)?'is-invalid':'' "/>
                                 <div v-show="titleInvalid" class="ltm-tiny-alert text-danger" >Title is required</div>
+                                <div v-show="duplicateTitle" class="ltm-tiny-alert text-danger" >Title must be unique</div>
+
                             </div>
                             
                         </div>
@@ -119,13 +121,15 @@
 export default {
     props: {
         task: Object,
-        type: String //Will either be "EDIT" or "NEW"
+        type: String, //Will either be "EDIT" or "NEW"
+        currentTitles: Array
     },
     data(){
         return {
             titleInvalid: false,
             descriptionInvalid: false,
             deadlineInvalid: false,
+            duplicateTitle: false,
             taskCopy: Object
         }
     },
@@ -189,12 +193,15 @@ export default {
             
             if (this.isEdit())
                 this.titleInvalid = false
-            else if (this.isNew())
-                this.titleInvalid = $("#title").val()? false : true
+            else if (this.isNew()){
+                let title = $("#title").val()
+                this.titleInvalid = !Boolean(title) 
+                this.duplicateTitle = this.currentTitles.includes(title)
+            }
             this.descriptionInvalid = $("#description").val()? false : true
             this.deadlineInvalid = $("#deadline").val()? false : true
             
-            return !this.titleInvalid && !this.descriptionInvalid && !this.deadlineInvalid
+            return !this.titleInvalid && !this.duplicateTitle && !this.descriptionInvalid && !this.deadlineInvalid
         },
         createTaskFromFields(){
             return  {
