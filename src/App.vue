@@ -47,7 +47,9 @@ export default {
       this.openNewModal()
     },
     deleteTask(id){
+      let taskToDelete = this.taskList.filter(t => t.id === id)[0]
       this.taskList = this.taskList.filter(t => t.id !== id)
+      toastr.success('Deleted task: ' + taskToDelete.title)
     },
     async editTask(id){
       this.taskToEdit = this.taskList.find(task => task.id == id)
@@ -91,9 +93,6 @@ export default {
         }
       )
     },
-    displayTestToast(){
-      toastr.info('All fields cleared')
-    }
   },
   data (){
     return {
