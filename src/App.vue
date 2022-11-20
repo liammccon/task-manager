@@ -2,10 +2,6 @@
   <div id="app">
     <NavBar @addBtnClicked="handleAddClicked" />
     <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
-    <!--
-      <NewModal ref="newModal" @addTask="addTask"/>
-    -->
-    <button @click="showNewModal">Show new new modal (test)</button>
     <button @click="addTestTask">make a test task (test)</button>
     <div v-if="showNewModal">
       <NewModal ref="newModal" type="NEW" :task="newTask" @addTask="addTask"/>

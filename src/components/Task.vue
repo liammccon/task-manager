@@ -3,7 +3,7 @@
       <div class = "row">
         <div class="col">{{task.title}}</div>
         <div class="col ">{{task.description}}</div>
-        <div class="col">{{task.deadline}}</div>
+        <div class="col">{{formattedDate()}}</div>
         <div class="col">{{task.priority}}</div>
         <div class="col">
             <input type="checkbox" class="form-check-input" :id="getCheckboxID()" @click="toggleComplete()">
@@ -30,14 +30,6 @@
     data () {
       return {
         isComplete: false,
-        /* deleteme
-        fields: {
-          title: undefined,
-          description: undefined,
-          deadline: undefined,
-          priority: undefined,
-          complete: undefined,
-        }*/
       }
     }, 
     props: {
@@ -57,6 +49,9 @@
       },
       getCheckboxID(){
         return  "checkbox" + this.task.id
+      },
+      formattedDate(){
+        return new Date(this.task.deadline).toLocaleDateString('en-us', { year:"numeric", month:"numeric", day:"numeric"}) 
       }
     }
   

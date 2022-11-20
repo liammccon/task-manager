@@ -58,7 +58,8 @@
                             <!--Deadline-->
                             <label class="form-label ltm-label" for="deadline">Deadline</label>
                             <input type="date" id="deadline" class="form-control ltm-input mb-0 ltm-date-text"
-                            :class = "(deadlineInvalid)?'is-invalid':''"/>
+                            :class = "(deadlineInvalid)?'is-invalid':'' "
+                            />
                             <div v-show="deadlineInvalid" class="ltm-tiny-alert text-left text-danger" >Deadline is required</div>
                         </div>
 
