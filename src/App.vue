@@ -3,6 +3,7 @@
     <NavBar @addBtnClicked="handleAddClicked" />
     <Tasks :taskList="taskList" @deleteTask="deleteTask" @editTask="editTask"/>
     <button @click="addTestTask">make a test task (test)</button>
+    <button @click="displayTestToast">New toast</button>
     <div v-if="showNewModal">
       <NewModal ref="newModal" type="NEW" :task="newTask" @addTask="addTask"/>
     </div>
@@ -58,6 +59,7 @@ export default {
     addTask(task){
       task.id=this.nextID++
       this.taskList.push(task)
+      toastr.success("Added new task: " + task.title)
     },
     createEmptyTask(){
       return {
@@ -74,6 +76,7 @@ export default {
       taskToUpdate.description = editedTask.description
       taskToUpdate.deadline = editedTask.deadline
       taskToUpdate.priority = editedTask.priority
+      toastr.success("Edited task: " + taskToUpdate.title)
     },
     addTestTask(){
 
@@ -87,6 +90,9 @@ export default {
           complete: true,
         }
       )
+    },
+    displayTestToast(){
+      toastr.info('All fields cleared')
     }
   },
   data (){
