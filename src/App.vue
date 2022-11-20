@@ -11,7 +11,7 @@
       <NewModal ref="newModal" type="NEW" :task="newTask" @addTask="addTask"/>
     </div>
     <div v-else>
-      <EditModal ref="editModal" type="EDIT" :task="taskToEdit" @editTask="editTask"/>
+      <EditModal ref="editModal" type="EDIT" :task="taskToEdit" @updateTask="updateTask"/>
     </div>
   </div>
 </template>
@@ -73,6 +73,15 @@ export default {
           priority: '',
           complete: false,
       }
+    },
+    updateTask(editedTask){
+      //todo editedTask has no ID
+      let taskToUpdate = this.taskList.find(task => task.id == editedTask.id)
+      console.log("EditedTask " + editedTask)
+      console.log("Update task " + taskToUpdate)
+      taskToUpdate.description = editedTask.description
+      taskToUpdate.deadline = editedTask.deadline
+      taskToUpdate.priority = editedTask.priority
     },
     addTestTask(){
 

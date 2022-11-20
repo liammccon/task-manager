@@ -182,18 +182,22 @@ export default {
             }
             //if valid, emit the new task object
             const editedTask = this.createTaskFromFields()
-            this.$emit('editTask', editedTask)
+            this.$emit('updateTask', editedTask)
             this.hideModal()
         }, validate(){
             
-            this.titleInvalid = $("#title").val()? false : true
+            if (this.isEdit())
+                this.titleInvalid = false
+            else if (this.isNew())
+                this.titleInvalid = $("#title").val()? false : true
             this.descriptionInvalid = $("#description").val()? false : true
             this.deadlineInvalid = $("#deadline").val()? false : true
             
             return !this.titleInvalid && !this.descriptionInvalid && !this.deadlineInvalid
         },
         createTaskFromFields(){
-            return {
+            return  {
+                id : this.task.id,
                 title: $("#title").val(),
                 description: $("#description").val(),
                 deadline: $("#deadline").val(),
