@@ -40,7 +40,6 @@ export default {
     },
   } ,
   methods: {
-    //TODO BROOKE IT HERE!
     async openNewModal(){
       this.showNewModal = true
       this.showEditModal = false
@@ -75,10 +74,7 @@ export default {
       }
     },
     updateTask(editedTask){
-      //todo editedTask has no ID
       let taskToUpdate = this.taskList.find(task => task.id == editedTask.id)
-      console.log("EditedTask " + editedTask)
-      console.log("Update task " + taskToUpdate)
       taskToUpdate.description = editedTask.description
       taskToUpdate.deadline = editedTask.deadline
       taskToUpdate.priority = editedTask.priority
