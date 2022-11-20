@@ -25,36 +25,36 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
-    name: 'NavBar',
-    data () {
-      return { }
-    }, 
-    methods: {
-      addBtnClick(){
-        this.$emit("addBtnClicked")
-      }
+<script>
+export default {
+  name: 'NavBar',
+  data () {
+    return { }
+  }, 
+  methods: {
+    addBtnClick(){
+      this.$emit("addBtnClicked")
     }
-  };
-  </script>
-  
-  <style scoped>
-  .ltm-nav-bar {
-    margin-bottom: 20px;
   }
-  .ltm-center {
-    text-align: center;
-  }
-  .ltm-add-btn {
-    min-width: 100px;
-  }
-  .ltm-content{
-    /* Will let the content be smaller than the main page width, up to 350px */
-    width: 100vw;
-    min-width: 350px;
-  }
-  </style>
+};
+</script>
+
+<style scoped>
+.ltm-nav-bar {
+  margin-bottom: 20px;
+}
+.ltm-center {
+  text-align: center;
+}
+.ltm-add-btn {
+  min-width: 100px;
+}
+.ltm-content{
+  /* Will let the content be smaller than the main page width, up to 350px */
+  width: 100vw;
+  min-width: 350px;
+}
+</style>
   
