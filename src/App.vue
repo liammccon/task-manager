@@ -5,13 +5,13 @@
     <!--
       <NewModal ref="newModal" @addTask="addTask"/>
     -->
-    <button @click="showNewNewModal">Show new new modal (test)</button>
+    <button @click="showNewModal">Show new new modal (test)</button>
     <button @click="addTestTask">make a test task (test)</button>
     <div v-if="showNewModal">
-      <NewModal2 ref="newModal2" type="NEW" :task="newTask" />
+      <NewModal ref="newModal" type="NEW" :task="newTask" @addTask="addTask"/>
     </div>
     <div v-else>
-      <Modal ref="editModal" type="EDIT" :task="taskToEdit"/>
+      <EditModal ref="editModal" type="EDIT" :task="taskToEdit" @editTask="editTask"/>
     </div>
   </div>
 </template>
@@ -19,14 +19,13 @@
 <script>
 import NavBar from './components/NavBar.vue'
 import Tasks from './components/Tasks.vue'
-import NewModal from './components/NewModal.vue'
-import Modal from './components/Modal.vue'
-import NewModal2 from './components/Modal.vue'
+import EditModal from './components/Modal.vue'
+import NewModal from './components/Modal.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar, Tasks, NewModal, Modal, NewModal2
+    NavBar, Tasks, EditModal, NewModal
   },
   computed: {
     makeNewTask() {
@@ -41,16 +40,15 @@ export default {
     },
   } ,
   methods: {
-    async showNewNewModal(){
+    //TODO BROOKE IT HERE!
+    async openNewModal(){
       this.showNewModal = true
       this.showEditModal = false
       await new Promise(resolve => setTimeout(resolve, 10)); //Needs to wait a moment or else the modal will be still null
-      this.$refs.newModal2.showModal()
+      this.$refs.newModal.showModal()
     },
      handleAddClicked(){
-      this.showNewModal = true
-      this.showEditModal = false
-      this.$refs.newModal.showModal()
+      this.openNewModal()
     },
     deleteTask(id){
       this.taskList = this.taskList.filter(t => t.id !== id)

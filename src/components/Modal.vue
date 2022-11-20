@@ -176,7 +176,14 @@ export default {
             this.cancel()
         },
         editTask(){
-            
+            if (!this.validate()) {
+                console.log("Invalid!")
+                return
+            }
+            //if valid, emit the new task object
+            const editedTask = this.createTaskFromFields()
+            this.$emit('editTask', editedTask)
+            this.hideModal()
         }, validate(){
             
             this.titleInvalid = $("#title").val()? false : true
